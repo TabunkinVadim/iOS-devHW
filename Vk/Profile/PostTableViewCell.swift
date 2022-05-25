@@ -7,6 +7,8 @@
 
 import UIKit
 
+import StorageService
+
 class PostTableViewCell: UITableViewCell {
 
     let postCell: UIView = {

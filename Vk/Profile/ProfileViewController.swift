@@ -6,147 +6,21 @@
 //
 
 import UIKit
+import StorageService
+
 class ProfileViewController: UIViewController {
-
-    var header: ProfileHeaderView = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
-
-
-    func setupGesture() {
-        header.avatarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector (tapAvatar)))
-        header.avatarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector (blureViewAnimate)))
-    }
-
-    //анимация Фона
-    @objc  func blureViewAnimate() {
-        tapAvatar()
-        let blureView: UIView = {
-            $0.toAutoLayout()
-            $0.backgroundColor = .white
-            $0.alpha = 0
-            return $0
-        }(UIView())
-
-        view.insertSubview(blureView, at: view.subviews.count-1)
-
-        NSLayoutConstraint.activate([
-            blureView.topAnchor.constraint(equalTo: view.topAnchor),
-            blureView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            blureView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blureView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-
-        let undoButtom:UIButton = {
-            $0.toAutoLayout()
-            $0.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-            $0.tintColor = UIColor(named: "MainColor")
-            $0.contentVerticalAlignment = .fill
-            $0.contentHorizontalAlignment = .fill
-            $0.alpha = 0
-            return $0
-        }(UIButton())
-
-        blureView.addSubview(undoButtom)
-        NSLayoutConstraint.activate([
-            undoButtom.topAnchor.constraint(equalTo: blureView.safeAreaLayoutGuide.topAnchor, constant: 15),
-            undoButtom.trailingAnchor.constraint(equalTo: blureView.trailingAnchor, constant: -15),
-            undoButtom.heightAnchor.constraint(equalToConstant: 50),
-            undoButtom.widthAnchor.constraint(equalToConstant: 50)
-        ])
-
-        UIView.animate(withDuration: 0.5) {
-            blureView.alpha = 0.8} completion: { _ in
-                UIView.animate(withDuration: 0.3){
-                    undoButtom.alpha = 1
-                }
-            }
-    }
-
-    //анимация фото
-    @objc  func tapAvatar() {
-        var avatarTop = NSLayoutConstraint()
-        var avatarLeading = NSLayoutConstraint()
-        var avatarHeight = NSLayoutConstraint()
-        var avatarWidth = NSLayoutConstraint()
-
-
-        let avatarView: UIView = {
-            $0.toAutoLayout()
-            $0.layer.cornerRadius = 50
-            $0.layer.borderWidth = 3
-            $0.layer.borderColor = UIColor.white.cgColor
-            $0.layer.masksToBounds = true
-            $0.backgroundColor = .blue
-            return $0
-        }(UIView())
-
-        view.insertSubview(avatarView, at: view.subviews.count)
-
-        let avatar: UIImageView = {
-            let image = UIImageView()
-            image.toAutoLayout()
-            image.layer.cornerRadius = 50
-            image.layer.borderWidth = 3
-            image.layer.borderColor = UIColor.white.cgColor
-            image.layer.masksToBounds = true
-            image.image = UIImage(named: "Avatar")
-            return image
-        }()
-
-        avatarView.addSubview(avatar)
-
-        NSLayoutConstraint.activate([
-            avatar.topAnchor.constraint(equalTo: avatarView.topAnchor),
-            avatar.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
-            avatar.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
-            avatar.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor)
-        ])
-
-        avatarTop = avatarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
-        avatarLeading = avatarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
-        avatarHeight = avatarView.heightAnchor.constraint(equalToConstant: 100)
-        avatarWidth = avatarView.widthAnchor.constraint(equalToConstant: 100)
-
-        NSLayoutConstraint.activate([
-            avatarTop,
-            avatarLeading,
-            avatarHeight,
-            avatarWidth
-        ])
-
-        UIView.animate(withDuration: 0.5){
-            avatarTop.constant = UIScreen.main.bounds.midY - UIScreen.main.bounds.width / 2
-            avatarLeading.constant = 0
-            avatarWidth.constant = self.view.bounds.width
-            avatarHeight.constant = avatarWidth.constant
-            self.view.layoutIfNeeded()
-        }
-
-        //
-        //        let avatarAnimate = CABasicAnimation(keyPath: #keyPath(CALayer.position))
-        ////        avatarAnimate.timingFunctionm =  CAMediaTimingFunction(name: .easeIn)
-        //        avatarAnimate.fromValue = header.avatar.center
-        //        avatarAnimate.toValue = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        ////        avatarAnimate.
-        //
-        //        let groupAnimation = CAAnimationGroup()
-        //        groupAnimation.duration = 0.5
-        ////        groupAnimation
-        //
-        //        groupAnimation.animations = [avatarAnimate]
-        //        groupAnimation.timingFunction = CAMediaTimingFunction(name: .linear)
-        //        avatarView.layer.add(groupAnimation, forKey: nil)
-        //        avatarView.layer.position = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        //
-        //        avatarView.transform = CGAffineTransform(translationX:  UIScreen.main.bounds.midX - 66, y: UIScreen.main.bounds.midY - 66).scaledBy(x: UIScreen.main.bounds.width/100, y: UIScreen.main.bounds.width/100)
-        ////        avatarView.transform = CGAffineTransform(scaleX: 1000/UIScreen.main.bounds.width, y: 1000/UIScreen.main.bounds.width)
-
-    }
 
     private lazy var tableView: UITableView = {
         $0.toAutoLayout()
         $0.dataSource = self
         $0.delegate = self
+
+        #if DEBUG
+        $0.backgroundColor = .red
+        #else
         $0.backgroundColor = .systemGray6
+        #endif
+
         $0.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifier)
         $0.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         $0.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
@@ -158,7 +32,6 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemGray6
         title = "Profile"
         layout()
-        setupGesture()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -210,17 +83,9 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        //        var header:UIView? = nil
-        //        func setupGesture() {
-        //            let tapGesture = UITapGestureRecognizer(target: self, action: #selector (tapAvatar))
-        //            header?.avatar.addGestureRecognizer(tapGesture)
-        //       }
+        var header:UIView? = nil
         if section == 0 {
-            //            header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifier)
-            //            header = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
-            //            header.avatarView.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
-            //            setupGesture()
-            //            self.view.layoutIfNeeded()
+            header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifier)
         }
         return header
     }
