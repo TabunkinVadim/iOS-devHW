@@ -72,7 +72,7 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
         } else {
             var cell: PostTableViewCell
             cell = (tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier , for: indexPath) as! PostTableViewCell)
-            cell.setupCell(model: posts[indexPath.row])
+            cell.setupCell(model: posts[indexPath.row], set: indexPath.row)
             return cell
         }
     }

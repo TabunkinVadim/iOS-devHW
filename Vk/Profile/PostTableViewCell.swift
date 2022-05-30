@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 import StorageService
 
@@ -64,14 +65,33 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupCell (model:Post) {
+    func setupCell (model:Post, set: Int) {
         postAutor.text = model.author
-        postImage.image = UIImage(imageLiteralResourceName: model.image)
+
+        let filter: ColorFilter
+        switch set {
+        case 0:
+            filter = .chrome
+        case 1:
+            filter = .fade
+        case 2:
+            filter = .bloom(intensity: 0.4)
+        default:
+            filter = .colorInvert
+        }
+        var image:(UIImage?)
+
+        ImageProcessor().processImage(sourceImage: model.image, filter: filter ) { imageFilter in
+            image = imageFilter
+        }
+
+        postImage.image = image
         postDescription.text = model.description
         postLike.text = "Likes: \(model.likes)"
         postViews.text = "Views: \(model.views)"
     }
 
+    
     private func layout() {
         
         contentView.addSubviews(postCell,postAutor, postImage, postDescription, postLike, postViews)

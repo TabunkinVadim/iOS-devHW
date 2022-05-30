@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView:UITableViewHeaderFooterView  {
     private var statusText: String = ""
 
     let avatarView: UIView = {
-        $0.toAutoLayout()
         $0.layer.cornerRadius = 50
         $0.layer.borderWidth = 3
         $0.layer.borderColor = UIColor.white.cgColor
@@ -22,7 +22,6 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
 
     var avatar: UIImageView = {
         let image = UIImageView()
-        image.toAutoLayout()
         image.layer.cornerRadius = 50
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.white.cgColor
@@ -31,14 +30,8 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         return image
     }()
 
-     var avatarTop = NSLayoutConstraint()
-     var avatarLeading = NSLayoutConstraint()
-     var avatarHeight = NSLayoutConstraint()
-     var avatarWidth = NSLayoutConstraint()
-
     let name: UILabel = {
         let lable = UILabel()
-        lable.toAutoLayout()
         lable.font = UIFont.boldSystemFont(ofSize: 18)
         lable.textColor = .black
         lable.text = "Иван Иванович"
@@ -47,7 +40,6 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     
     let statusButtom: UIButton = {
         let buttom = UIButton(frame: CGRect(x: 16, y: 116, width: 200, height: 50))
-        buttom.toAutoLayout()
         buttom.backgroundColor = .blue
         buttom.setTitle("Show status", for: .normal)
         buttom.setTitleColor(.white, for: .normal)
@@ -62,7 +54,6 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     
     let status: UILabel = {
         let lable = UILabel(frame: CGRect(x: 100, y: 400, width: 200, height: 40))
-        lable.toAutoLayout()
         lable.font = UIFont.systemFont(ofSize: 14)
         lable.text = "Я в шоке..."
         lable.textColor = .gray
@@ -72,7 +63,6 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     
     lazy var statusSet: UITextField = {
         let field = UITextField()
-        field.toAutoLayout()
         field.font = UIFont.systemFont(ofSize: 15)
         field.textColor = .black
         field.backgroundColor = .white
@@ -110,41 +100,41 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         super .layoutSubviews()
         
         contentView.addSubviews(avatarView, name, statusButtom, status, statusSet)
+        avatarView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(16)
+            maker.leading.equalToSuperview().inset(16)
+            maker.height.equalTo(100)
+            maker.width.equalTo(100)
+        }
 
-        NSLayoutConstraint.activate([
-            avatarView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            avatarView.heightAnchor.constraint(equalToConstant: 100),
-            avatarView.widthAnchor.constraint(equalToConstant: 100)
-        ])
-        avatarView.addSubview(avatar)
-        NSLayoutConstraint.activate([
-            avatar.topAnchor.constraint(equalTo: avatarView.topAnchor),
-            avatar.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
-            avatar.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
-            avatar.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            name.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16),
-            name.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
-            statusButtom.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 16),
-            statusButtom.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            statusButtom.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
-            status.bottomAnchor.constraint(equalTo: statusSet.topAnchor, constant: -10),
-            status.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16),
-            status.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
-            statusSet.bottomAnchor.constraint(equalTo: statusButtom.topAnchor, constant: -8),
-            statusSet.leadingAnchor.constraint(equalTo: avatar.trailingAnchor, constant: 16),
-            statusSet.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            statusSet.heightAnchor.constraint(equalToConstant: 40)
-        ])
+        avatarView.addSubviews(avatar)
+        avatar.snp.makeConstraints { maker in
+            maker.top.equalToSuperview()
+            maker.leading.equalToSuperview()
+            maker.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview()
+        }
+        name.snp.makeConstraints { marker in
+            marker.top.equalToSuperview().inset(27)
+            marker.leading.equalTo(avatar.snp.trailing).offset(16)
+            marker.trailing.equalToSuperview().inset(16)
+        }
+        statusButtom.snp.makeConstraints { marker in
+            marker.top.equalTo(avatar.snp.bottom).offset(16)
+            marker.leading.equalToSuperview().offset(16)
+            marker.trailing.equalToSuperview().inset(16)
+        }
+        status.snp.makeConstraints { marker in
+            marker.bottom.equalTo(statusSet.snp.top).offset(-10)
+            marker.leading.equalTo(avatar.snp.trailing).offset(16)
+            marker.trailing.equalToSuperview().inset(16)
+        }
+        statusSet.snp.makeConstraints { marker in
+            marker.bottom.equalTo(statusButtom.snp.top).offset(-8)
+            marker.leading.equalTo(avatar.snp.trailing).offset(16)
+            marker.trailing.equalToSuperview().inset(16)
+            marker.height.equalTo(40)
+        }
     }
 }
 

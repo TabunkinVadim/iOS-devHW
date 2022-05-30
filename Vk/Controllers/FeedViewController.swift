@@ -64,4 +64,4 @@ class FeedViewController: UIViewController {
     }
 }
 
-let newPost = Post(author: "News", image: "", description: "", likes: 10, views: 10, title: "Новости")
+let newPost = Post(author: "News", image: UIImage(), description: "", likes: 10, views: 10, title: "Новости")
