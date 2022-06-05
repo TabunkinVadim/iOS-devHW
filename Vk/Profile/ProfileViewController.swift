@@ -9,23 +9,37 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
-
+    var header: ProfileHeaderView = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
     private lazy var tableView: UITableView = {
         $0.toAutoLayout()
         $0.dataSource = self
         $0.delegate = self
-
+        
         #if DEBUG
         $0.backgroundColor = .red
         #else
         $0.backgroundColor = .systemGray6
         #endif
-
+        
         $0.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifier)
         $0.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         $0.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         return $0
     }(UITableView(frame: .zero, style: .grouped))
+    
+    var userLogin: UserService
+    var user: User
+
+    init (user: UserService, name: String) {
+        userLogin = user
+        self.user = user.setUser(fullName: name) ?? User(fullName: "", avatar: UIImage(), status: "")
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +47,7 @@ class ProfileViewController: UIViewController {
         title = "Profile"
         layout()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -47,7 +61,7 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
-
+        
     }
     
 }
@@ -80,16 +94,16 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        var header:UIView? = nil
         if section == 0 {
-            header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifier)
+            header.avatar.image = user.avatar
+            header.name.text = user.fullName
+            header.status.text = user.status
         }
         return header
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 200

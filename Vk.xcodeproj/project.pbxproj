@@ -27,6 +27,10 @@
 		6E9D02D3283D8287000F6E91 /* Post.swift in Headers */ = {isa = PBXBuildFile; fileRef = 6E18530327DDE66B00A8EA39 /* Post.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E9D02D8283EB80A000F6E91 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9D02B2283D7D59000F6E91 /* StorageService.framework */; };
 		6E9D02DB28453B08000F6E91 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 6E9D02DA28453B08000F6E91 /* iOSIntPackage */; };
+		6E9D02DD28469A16000F6E91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02DC28469A16000F6E91 /* User.swift */; };
+		6E9D02E028469B91000F6E91 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02DF28469B91000F6E91 /* Protocols.swift */; };
+		6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */; };
+		6E9D02E6284C98C0000F6E91 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E3284C9825000F6E91 /* TestUserService.swift */; };
 		6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */; };
 		6EFC727827EB99CF006C3DED /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */; };
 		6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727927EEE923006C3DED /* UIViewExtension.swift */; };
@@ -89,7 +93,7 @@
 		6E030B1227CBFD01004609EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E030B1427CBFD01004609EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E030B3727DDE266004609EE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../Profile/ProfileViewController.swift; sourceTree = "<group>"; };
 		6E1852FC27DDE65900A8EA39 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,10 @@
 		6E9D02BA283D7D59000F6E91 /* StorageServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StorageServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9D02C1283D7D59000F6E91 /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
 		6E9D02C3283D7D59000F6E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6E9D02DC28469A16000F6E91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6E9D02DF28469B91000F6E91 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		6E9D02E3284C9825000F6E91 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		6EFC727927EEE923006C3DED /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -190,10 +198,12 @@
 			isa = PBXGroup;
 			children = (
 				6E030B0A27CBFCFC004609EE /* MainTabBarController.swift */,
-				6EFC728327F99311006C3DED /* PhotosViewController.swift */,
-				6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */,
-				6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */,
 				6E1852FC27DDE65900A8EA39 /* PostViewController.swift */,
+				6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */,
+				6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */,
+				6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */,
+				6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */,
+				6EFC728327F99311006C3DED /* PhotosViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -202,10 +212,14 @@
 			isa = PBXGroup;
 			children = (
 				6E030B1127CBFD01004609EE /* LaunchScreen.storyboard */,
-				6E030B1427CBFD01004609EE /* Info.plist */,
+				6E9D02DF28469B91000F6E91 /* Protocols.swift */,
 				6EFC728127F047E6006C3DED /* Photo.swift */,
 				6EFC727B27EF5249006C3DED /* ConstrantsPostTableViewCell.swift */,
+				6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */,
+				6E9D02DC28469A16000F6E91 /* User.swift */,
+				6E9D02E3284C9825000F6E91 /* TestUserService.swift */,
 				6E030B0F27CBFD01004609EE /* Assets.xcassets */,
+				6E030B1427CBFD01004609EE /* Info.plist */,
 			);
 			path = Resourses;
 			sourceTree = "<group>";
@@ -213,9 +227,7 @@
 		6E030B3627DDE23E004609EE /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */,
 				6E030B3727DDE266004609EE /* ProfileHeaderView.swift */,
-				6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */,
 				6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */,
 				6EFC727D27F03E26006C3DED /* PhotosTableViewCell.swift */,
 				6EFC727F27F041E1006C3DED /* ProfilePhotoCollectionViewCell.swift */,
@@ -526,16 +538,20 @@
 				6EFC728427F99311006C3DED /* PhotosViewController.swift in Sources */,
 				6EFC728027F041E1006C3DED /* ProfilePhotoCollectionViewCell.swift in Sources */,
 				6E030B0B27CBFCFC004609EE /* MainTabBarController.swift in Sources */,
+				6E9D02DD28469A16000F6E91 /* User.swift in Sources */,
 				6EFC728227F047E6006C3DED /* Photo.swift in Sources */,
 				6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */,
 				6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */,
 				6E1852FF27DDE65900A8EA39 /* ProfileViewController.swift in Sources */,
 				6E030B0727CBFCFC004609EE /* AppDelegate.swift in Sources */,
+				6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */,
+				6E9D02E6284C98C0000F6E91 /* TestUserService.swift in Sources */,
 				6EFC727C27EF5249006C3DED /* ConstrantsPostTableViewCell.swift in Sources */,
 				6E030B3827DDE266004609EE /* ProfileHeaderView.swift in Sources */,
 				6EFC727E27F03E26006C3DED /* PhotosTableViewCell.swift in Sources */,
 				6EFC727827EB99CF006C3DED /* PostTableViewCell.swift in Sources */,
 				6E18530227DDE65900A8EA39 /* InfoViewController.swift in Sources */,
+				6E9D02E028469B91000F6E91 /* Protocols.swift in Sources */,
 				6E18530127DDE65900A8EA39 /* FeedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

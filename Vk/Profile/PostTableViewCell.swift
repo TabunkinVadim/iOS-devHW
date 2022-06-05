@@ -79,13 +79,9 @@ class PostTableViewCell: UITableViewCell {
         default:
             filter = .colorInvert
         }
-        var image:(UIImage?)
-
         ImageProcessor().processImage(sourceImage: model.image, filter: filter ) { imageFilter in
-            image = imageFilter
+            postImage.image = imageFilter
         }
-
-        postImage.image = image
         postDescription.text = model.description
         postLike.text = "Likes: \(model.likes)"
         postViews.text = "Views: \(model.views)"

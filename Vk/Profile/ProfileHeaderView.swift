@@ -30,7 +30,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         return image
     }()
 
-    let name: UILabel = {
+    var name: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.boldSystemFont(ofSize: 18)
         lable.textColor = .black
@@ -52,7 +52,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         return buttom
     }()
     
-    let status: UILabel = {
+    var status: UILabel = {
         let lable = UILabel(frame: CGRect(x: 100, y: 400, width: 200, height: 40))
         lable.font = UIFont.systemFont(ofSize: 14)
         lable.text = "Я в шоке..."
@@ -145,5 +145,3 @@ extension ProfileHeaderView: UITextFieldDelegate{
         return true
     }
 }
-
-

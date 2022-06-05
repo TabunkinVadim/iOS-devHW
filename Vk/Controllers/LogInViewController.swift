@@ -98,12 +98,30 @@ class LogInViewController: UIViewController {
         loginButtom.alpha = 0.8
     }
     @objc func openProfile(_ sender:UIButton) {
-        if loginSet.text != "" && passwordSet.text != "" {
-            navigationController?.pushViewController( ProfileViewController(), animated: true)
-            loginButtom.alpha = 1} else {
-                loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-                passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-            }
+
+        #if DEBUG
+        if loginSet.text == TestUserService().currentUser.fullName && passwordSet.text != "" {
+            let profileVC = ProfileViewController(user: TestUserService(), name: loginSet.text ?? "")
+            navigationController?.pushViewController( profileVC, animated: true)
+            loginButtom.alpha = 1
+        }else {
+            loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            loginSet.textColor = .red
+            passwordSet.textColor = .red
+        }
+        #else
+        if loginSet.text == CurrentUserService().currentUser.fullName && passwordSet.text != "" {
+            let profileVC = ProfileViewController(user: CurrentUserService(), name: loginSet.text ?? "")
+            navigationController?.pushViewController( profileVC, animated: true)
+            loginButtom.alpha = 1
+        }else {
+            loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            loginSet.textColor = .red
+            passwordSet.textColor = .red
+        }
+        #endif
     }
     
     private func layout() {
