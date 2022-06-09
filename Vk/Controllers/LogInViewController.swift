@@ -9,6 +9,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    weak var delegate: LoginViewControllerDelegate?
+
     private let contentView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -78,6 +80,17 @@ class LogInViewController: UIViewController {
         $0.addTarget(self, action: #selector(openProfile), for: .touchUpInside)
         return $0
     }(UIButton())
+
+        private let loginCheker: LoginInspector
+
+        init (loginCheker: LoginInspector){
+            self.loginCheker = loginCheker
+            super.init(nibName: nil, bundle: nil)
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,9 +111,10 @@ class LogInViewController: UIViewController {
         loginButtom.alpha = 0.8
     }
     @objc func openProfile(_ sender:UIButton) {
-
+        delegate = loginCheker
+        if let bool = delegate?.chek(login: loginSet.text ?? "", pswd: passwordSet.text ?? "") {
         #if DEBUG
-        if loginSet.text == TestUserService().currentUser.fullName && passwordSet.text != "" {
+        if bool{
             let profileVC = ProfileViewController(user: TestUserService(), name: loginSet.text ?? "")
             navigationController?.pushViewController( profileVC, animated: true)
             loginButtom.alpha = 1
@@ -111,7 +125,7 @@ class LogInViewController: UIViewController {
             passwordSet.textColor = .red
         }
         #else
-        if loginSet.text == CurrentUserService().currentUser.fullName && passwordSet.text != "" {
+        if bool{
             let profileVC = ProfileViewController(user: CurrentUserService(), name: loginSet.text ?? "")
             navigationController?.pushViewController( profileVC, animated: true)
             loginButtom.alpha = 1
@@ -122,90 +136,92 @@ class LogInViewController: UIViewController {
             passwordSet.textColor = .red
         }
         #endif
+        } 
     }
-    
-    private func layout() {
-        
-        view.addSubview(loginScrollView)
-        
-        NSLayoutConstraint.activate([
-            loginScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            loginScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            loginScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            loginScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            loginScrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        ])
-        
-        loginScrollView.addSubview(contentView)
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: loginScrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: loginScrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: loginScrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: loginScrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: loginScrollView.widthAnchor)
-        ])
-        
-        contentView.addSubviews(logo, loginSet, passwordSet, loginButtom)
-        
-        NSLayoutConstraint.activate([
-            logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-            logo.widthAnchor.constraint(equalToConstant: 100),
-            logo.heightAnchor.constraint(equalToConstant: 100),
-            logo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
-            loginSet.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
-            loginSet.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginSet.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            loginSet.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        NSLayoutConstraint.activate([
-            passwordSet.topAnchor.constraint(equalTo: loginSet.bottomAnchor),
-            passwordSet.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            passwordSet.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            passwordSet.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        NSLayoutConstraint.activate([
-            loginButtom.topAnchor.constraint(equalTo: passwordSet.bottomAnchor, constant: 16),
-            loginButtom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            loginButtom.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            loginButtom.heightAnchor.constraint(equalToConstant: 50),
-            loginButtom.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
-        ])
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // подписаться на уведомления
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // отписаться от уведомлений
-        let nc = NotificationCenter.default
-        nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    // Изменение отступов при появлении клавиатуры
-    @objc private func kbdShow(notification: NSNotification) {
-        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            loginScrollView.contentInset.bottom = kbdSize.height
-            loginScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0) }
-    }
-    
-    @objc private func kbdHide(notification: NSNotification) {
-        loginScrollView.contentInset.bottom = .zero
-        loginScrollView.verticalScrollIndicatorInsets = .zero
-    }
+
+
+private func layout() {
+
+    view.addSubview(loginScrollView)
+
+    NSLayoutConstraint.activate([
+        loginScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        loginScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        loginScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        loginScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        loginScrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+    ])
+
+    loginScrollView.addSubview(contentView)
+
+    NSLayoutConstraint.activate([
+        contentView.topAnchor.constraint(equalTo: loginScrollView.topAnchor),
+        contentView.leadingAnchor.constraint(equalTo: loginScrollView.leadingAnchor),
+        contentView.trailingAnchor.constraint(equalTo: loginScrollView.trailingAnchor),
+        contentView.bottomAnchor.constraint(equalTo: loginScrollView.bottomAnchor),
+        contentView.widthAnchor.constraint(equalTo: loginScrollView.widthAnchor)
+    ])
+
+    contentView.addSubviews(logo, loginSet, passwordSet, loginButtom)
+
+    NSLayoutConstraint.activate([
+        logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+        logo.widthAnchor.constraint(equalToConstant: 100),
+        logo.heightAnchor.constraint(equalToConstant: 100),
+        logo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+    ])
+
+    NSLayoutConstraint.activate([
+        loginSet.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
+        loginSet.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        loginSet.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+        loginSet.heightAnchor.constraint(equalToConstant: 50)
+    ])
+
+    NSLayoutConstraint.activate([
+        passwordSet.topAnchor.constraint(equalTo: loginSet.bottomAnchor),
+        passwordSet.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        passwordSet.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+        passwordSet.heightAnchor.constraint(equalToConstant: 50)
+    ])
+
+    NSLayoutConstraint.activate([
+        loginButtom.topAnchor.constraint(equalTo: passwordSet.bottomAnchor, constant: 16),
+        loginButtom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+        loginButtom.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+        loginButtom.heightAnchor.constraint(equalToConstant: 50),
+        loginButtom.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
+    ])
+}
+
+override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    // подписаться на уведомления
+    let nc = NotificationCenter.default
+    nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    nc.addObserver(self, selector: #selector(kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+}
+
+override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    // отписаться от уведомлений
+    let nc = NotificationCenter.default
+    nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+}
+
+// Изменение отступов при появлении клавиатуры
+@objc private func kbdShow(notification: NSNotification) {
+    if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        loginScrollView.contentInset.bottom = kbdSize.height
+        loginScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0) }
+}
+
+@objc private func kbdHide(notification: NSNotification) {
+    loginScrollView.contentInset.bottom = .zero
+    loginScrollView.verticalScrollIndicatorInsets = .zero
+}
 }
 
 extension LogInViewController: UITextFieldDelegate{

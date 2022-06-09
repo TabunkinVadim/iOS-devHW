@@ -10,3 +10,6 @@ import Foundation
 protocol UserService {
     func setUser(fullName:String) -> User?
 }
+protocol LoginViewControllerDelegate: AnyObject {
+    func chek(login: String, pswd: String) -> Bool
+    }

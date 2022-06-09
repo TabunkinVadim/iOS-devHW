@@ -19,6 +19,7 @@
 		6E18530027DDE65900A8EA39 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FC27DDE65900A8EA39 /* PostViewController.swift */; };
 		6E18530127DDE65900A8EA39 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */; };
 		6E18530227DDE65900A8EA39 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */; };
+		6E589D27284FC65F00AE3E00 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E589D26284FC65F00AE3E00 /* LoginInspector.swift */; };
 		6E9D02C2283D7D59000F6E91 /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02C1283D7D59000F6E91 /* StorageServiceTests.swift */; };
 		6E9D02C4283D7D59000F6E91 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E9D02B4283D7D59000F6E91 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E9D02C7283D7D59000F6E91 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9D02B2283D7D59000F6E91 /* StorageService.framework */; };
@@ -31,6 +32,7 @@
 		6E9D02E028469B91000F6E91 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02DF28469B91000F6E91 /* Protocols.swift */; };
 		6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */; };
 		6E9D02E6284C98C0000F6E91 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E3284C9825000F6E91 /* TestUserService.swift */; };
+		6E9D02E9284F9C78000F6E91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E8284F9C78000F6E91 /* Checker.swift */; };
 		6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */; };
 		6EFC727827EB99CF006C3DED /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */; };
 		6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727927EEE923006C3DED /* UIViewExtension.swift */; };
@@ -98,6 +100,7 @@
 		6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		6E18530327DDE66B00A8EA39 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; usesTabs = 0; };
+		6E589D26284FC65F00AE3E00 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		6E9D02B2283D7D59000F6E91 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9D02B4283D7D59000F6E91 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		6E9D02B5283D7D59000F6E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		6E9D02DF28469B91000F6E91 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		6E9D02E3284C9825000F6E91 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
+		6E9D02E8284F9C78000F6E91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		6EFC727927EEE923006C3DED /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		6E030B0527CBFCFC004609EE /* Vk */ = {
 			isa = PBXGroup;
 			children = (
+				6E9D02E7284F9C59000F6E91 /* Singleton */,
 				6E030B3627DDE23E004609EE /* Profile */,
 				6E030B2927DDDE7A004609EE /* Application */,
 				6E030B2A27DDDE9E004609EE /* Controllers */,
@@ -190,6 +195,7 @@
 			children = (
 				6E030B0627CBFCFC004609EE /* AppDelegate.swift */,
 				6EFC727927EEE923006C3DED /* UIViewExtension.swift */,
+				6E589D26284FC65F00AE3E00 /* LoginInspector.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -262,6 +268,14 @@
 				374BF3B94C9D86D3942CC9BF /* Pods_Vk.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E9D02E7284F9C59000F6E91 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				6E9D02E8284F9C78000F6E91 /* Checker.swift */,
+			);
+			path = Singleton;
 			sourceTree = "<group>";
 		};
 		C73E24637C46615620A154DB /* Pods */ = {
@@ -534,7 +548,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E589D27284FC65F00AE3E00 /* LoginInspector.swift in Sources */,
 				6E18530027DDE65900A8EA39 /* PostViewController.swift in Sources */,
+				6E9D02E9284F9C78000F6E91 /* Checker.swift in Sources */,
 				6EFC728427F99311006C3DED /* PhotosViewController.swift in Sources */,
 				6EFC728027F041E1006C3DED /* ProfilePhotoCollectionViewCell.swift in Sources */,
 				6E030B0B27CBFCFC004609EE /* MainTabBarController.swift in Sources */,
@@ -701,7 +717,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

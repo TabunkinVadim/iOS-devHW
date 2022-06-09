@@ -8,7 +8,18 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    
+
+    let  loginVC: UIViewController
+
+    init (loginCheker: LoginInspector){
+        loginVC = LogInViewController(loginCheker: loginCheker )
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -16,10 +27,8 @@ class MainTabBarController: UITabBarController {
     
     func setupTabBar() {
         let feedViewController = createNavController(viewController: FeedViewController(), itemName: "Newsline", itemImage: "newspaper")
-        
-        let profileViewController = createNavController(viewController: LogInViewController(), itemName: "Profile", itemImage: "person")
-        
-        viewControllers = [feedViewController, profileViewController]
+        let profileViewController = createNavController(viewController: loginVC, itemName: "Profile", itemImage: "person")
+        viewControllers = [profileViewController, feedViewController]
     }
     
     func createNavController(viewController:UIViewController, itemName: String, itemImage: String) -> UINavigationController {
