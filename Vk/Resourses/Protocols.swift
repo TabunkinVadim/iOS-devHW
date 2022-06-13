@@ -13,3 +13,6 @@ protocol UserService {
 protocol LoginViewControllerDelegate: AnyObject {
     func chek(login: String, pswd: String) -> Bool
     }
+protocol LoginFactory{
+    func getLoginChek() -> LoginInspector
+}

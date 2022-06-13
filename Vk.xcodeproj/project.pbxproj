@@ -33,6 +33,7 @@
 		6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */; };
 		6E9D02E6284C98C0000F6E91 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E3284C9825000F6E91 /* TestUserService.swift */; };
 		6E9D02E9284F9C78000F6E91 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02E8284F9C78000F6E91 /* Checker.swift */; };
+		6EAEEE4B2856DA9B00B06A3D /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAEEE4A2856DA9B00B06A3D /* MyLoginFactory.swift */; };
 		6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */; };
 		6EFC727827EB99CF006C3DED /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */; };
 		6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC727927EEE923006C3DED /* UIViewExtension.swift */; };
@@ -112,6 +113,7 @@
 		6E9D02E128469CDE000F6E91 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		6E9D02E3284C9825000F6E91 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		6E9D02E8284F9C78000F6E91 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
+		6EAEEE4A2856DA9B00B06A3D /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		6EFB23E227E6EC0500FF8797 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6EFC727727EB99CF006C3DED /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		6EFC727927EEE923006C3DED /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		6E030B0527CBFCFC004609EE /* Vk */ = {
 			isa = PBXGroup;
 			children = (
+				6EAEEE492856DA6900B06A3D /* Factory */,
 				6E9D02E7284F9C59000F6E91 /* Singleton */,
 				6E030B3627DDE23E004609EE /* Profile */,
 				6E030B2927DDDE7A004609EE /* Application */,
@@ -276,6 +279,14 @@
 				6E9D02E8284F9C78000F6E91 /* Checker.swift */,
 			);
 			path = Singleton;
+			sourceTree = "<group>";
+		};
+		6EAEEE492856DA6900B06A3D /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				6EAEEE4A2856DA9B00B06A3D /* MyLoginFactory.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		C73E24637C46615620A154DB /* Pods */ = {
@@ -558,6 +569,7 @@
 				6EFC728227F047E6006C3DED /* Photo.swift in Sources */,
 				6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */,
 				6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */,
+				6EAEEE4B2856DA9B00B06A3D /* MyLoginFactory.swift in Sources */,
 				6E1852FF27DDE65900A8EA39 /* ProfileViewController.swift in Sources */,
 				6E030B0727CBFCFC004609EE /* AppDelegate.swift in Sources */,
 				6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */,
