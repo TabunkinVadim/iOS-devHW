@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
@@ -22,10 +23,17 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(unsubscribe(_:)))
         title = "Photo Gallery"
         view.backgroundColor = .white
         super.viewDidLoad()
         layout()
+        imageFasade.subscribe(self)
+        setFasade
+    }
+
+    @objc func unsubscribe(_ sender:Any) {
+        imageFasade.removeSubscription(for: self)
     }
 
     func layout() {
@@ -45,12 +53,12 @@ extension PhotosViewController : UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photoGallery.count
+        incominginImages.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotoCollectionViewCell.identifier, for: indexPath) as! ProfilePhotoCollectionViewCell
-        cell.imageView.image = UIImage(named: photoGallery[indexPath.item].name)
+        cell.imageView.image = incominginImages[indexPath.item]
         return cell
     }
 
@@ -67,4 +75,9 @@ extension PhotosViewController : UICollectionViewDataSource, UICollectionViewDel
         UIEdgeInsets(top: PhotosViewController.indent, left: PhotosViewController.indent, bottom: PhotosViewController.indent, right: PhotosViewController.indent)
     }
 
+}
+extension PhotosViewController: ImageLibrarySubscriber{
+    func receive(images: [UIImage]) {
+        collectionView.reloadData()
+    }
 }

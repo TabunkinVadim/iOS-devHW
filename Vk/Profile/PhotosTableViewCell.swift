@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosTableViewCell: UITableViewCell {
 
@@ -39,6 +40,8 @@ class PhotosTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
+        imageFasade.subscribe(self)
+        setFasade
     }
 
     required init?(coder: NSCoder) {
@@ -74,12 +77,13 @@ class PhotosTableViewCell: UITableViewCell {
 extension PhotosTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photoGallery.count
+        incominginImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotoCollectionViewCell.identifier, for: indexPath) as! ProfilePhotoCollectionViewCell
-        cell.imageView.image = UIImage(named: photoGallery[indexPath.item].name)
+
+        cell.imageView.image = incominginImages[indexPath.item]
         return cell
     }
 
@@ -97,3 +101,9 @@ extension PhotosTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
 }
 
+extension PhotosTableViewCell: ImageLibrarySubscriber{
+    func receive(images: [UIImage]) {
+        incominginImages = images
+        collectionView.reloadData()
+    }
+}

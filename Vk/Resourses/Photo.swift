@@ -6,30 +6,30 @@
 //
 
 import Foundation
+import UIKit
+import iOSIntPackage
 
-struct Photo {
-    let name: String
-}
+let photoGallery2: [UIImage] = [UIImage(named: "Photo_1") ?? UIImage(),
+                     UIImage(named: "Photo_2") ?? UIImage(),
+                     UIImage(named: "Photo_3") ?? UIImage(),
+                     UIImage(named: "Photo_4") ?? UIImage(),
+                     UIImage(named: "Photo_5") ?? UIImage(),
+                     UIImage(named: "Photo_6") ?? UIImage(),
+                     UIImage(named: "Photo_7") ?? UIImage(),
+                     UIImage(named: "Photo_8") ?? UIImage(),
+                     UIImage(named: "Photo_9") ?? UIImage(),
+                     UIImage(named: "Photo_10") ?? UIImage(),
+                     UIImage(named: "Photo_11") ?? UIImage(),
+                     UIImage(named: "Photo_12") ?? UIImage(),
+                     UIImage(named: "Photo_13") ?? UIImage(),
+                     UIImage(named: "Photo_14") ?? UIImage(),
+                     UIImage(named: "Photo_15") ?? UIImage(),
+                     UIImage(named: "Photo_16") ?? UIImage(),
+                     UIImage(named: "Photo_17") ?? UIImage(),
+                     UIImage(named: "Photo_18") ?? UIImage(),
+                     UIImage(named: "Photo_19") ?? UIImage(),
+                     UIImage(named: "Photo_20") ?? UIImage()]
 
-let photoGallery = [Photo(name: "Photo_1"),
-                    Photo(name: "Photo_2"),
-                    Photo(name: "Photo_3"),
-                    Photo(name: "Photo_4"),
-                    Photo(name: "Photo_5"),
-                    Photo(name: "Photo_6"),
-                    Photo(name: "Photo_7"),
-                    Photo(name: "Photo_8"),
-                    Photo(name: "Photo_9"),
-                    Photo(name: "Photo_10"),
-                    Photo(name: "Photo_11"),
-                    Photo(name: "Photo_12"),
-                    Photo(name: "Photo_13"),
-                    Photo(name: "Photo_14"),
-                    Photo(name: "Photo_15"),
-                    Photo(name: "Photo_16"),
-                    Photo(name: "Photo_17"),
-                    Photo(name: "Photo_18"),
-                    Photo(name: "Photo_19"),
-                    Photo(name: "Photo_20")]
-
-
+let imageFasade = ImagePublisherFacade()
+let setFasade: () = imageFasade.addImagesWithTimer(time: 1, repeat: 20, userImages: photoGallery2)
+var incominginImages: [UIImage] = []
