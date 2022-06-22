@@ -10,9 +10,11 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
     let  loginVC: UIViewController
+    let feedVC: UIViewController
 
-    init (loginCheker: LoginInspector){
+    init (loginCheker: LoginInspector,checkModel: CheckModel ){
         loginVC = LogInViewController(loginCheker: loginCheker )
+        feedVC = FeedViewController(checkModel: checkModel)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -26,7 +28,7 @@ class MainTabBarController: UITabBarController {
     }
     
     func setupTabBar() {
-        let feedViewController = createNavController(viewController: FeedViewController(), itemName: "Newsline", itemImage: "newspaper")
+        let feedViewController = createNavController(viewController: feedVC, itemName: "Newsline", itemImage: "newspaper")
         let profileViewController = createNavController(viewController: loginVC, itemName: "Profile", itemImage: "person")
         viewControllers = [profileViewController, feedViewController]
     }

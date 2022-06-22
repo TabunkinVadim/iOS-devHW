@@ -8,7 +8,7 @@
 import Foundation
 
 final class Checker {
-
+    
     static let shared = Checker()
     #if DEBUG
     private let login = "Пётр"
@@ -16,7 +16,7 @@ final class Checker {
     private let login = "Иван"
     #endif
     private let pswd = "1"
-
+    
     func chek(verifiableLogin: String, verifiablePassword: String) -> Bool {
         if verifiableLogin.hash == login.hash && verifiablePassword.hash == pswd.hash {
             return true
@@ -24,7 +24,7 @@ final class Checker {
             return false
         }
     }
-
+    
 }
 
 

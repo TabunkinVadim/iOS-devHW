@@ -11,5 +11,5 @@ class MyLoginFactory: LoginFactory {
     func getLoginChek() -> LoginInspector {
         return LoginInspector()
     }
-
+    
 }

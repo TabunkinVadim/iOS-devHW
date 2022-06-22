@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileHeaderView:UITableViewHeaderFooterView  {
     private var statusText: String = ""
-
+    
     let avatarView: UIView = {
         $0.layer.cornerRadius = 50
         $0.layer.borderWidth = 3
@@ -19,7 +19,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         $0.backgroundColor = .blue
         return $0
     }(UIView())
-
+    
     var avatar: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 50
@@ -29,7 +29,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         image.image = UIImage(named: "Avatar")
         return image
     }()
-
+    
     var name: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.boldSystemFont(ofSize: 18)
@@ -38,19 +38,11 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         return lable
     }()
     
-    let statusButtom: UIButton = {
-        let buttom = UIButton(frame: CGRect(x: 16, y: 116, width: 200, height: 50))
-        buttom.backgroundColor = .blue
-        buttom.setTitle("Show status", for: .normal)
-        buttom.setTitleColor(.white, for: .normal)
-        buttom.layer.shadowOffset = CGSize(width: 4, height: 4)
-        buttom.layer.shadowRadius = 4
-        buttom.layer.shadowColor = UIColor.black.cgColor
-        buttom.layer.shadowOpacity = 0.7
-        buttom.layer.cornerRadius = 4
-        buttom.addTarget(self, action: #selector(pressStatusButtom), for: .touchUpInside)
-        return buttom
-    }()
+    
+    private lazy var statusButtom = CustomButton(title: "Show status", color: .blue, colorTitle: .white, borderWith: 0, cornerRadius: 4) {
+        self.status.text = self.statusText
+        print(self.status.text ?? "Статус отсутствует")
+    }
     
     var status: UILabel = {
         let lable = UILabel(frame: CGRect(x: 100, y: 400, width: 200, height: 40))
@@ -90,23 +82,23 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         status.text = statusText
         print(status.text ?? "Статус отсутствует")
     }
-
+    
     @objc func statusTextChanged(_ textField: UITextField){
         statusText = textField.text ?? ""
     }
-
+    
     
     override func layoutSubviews() {
         super .layoutSubviews()
         
-        contentView.addSubviews(avatarView, name, statusButtom, status, statusSet)
+        contentView.addSubviews(avatarView, name, statusButtom!, status, statusSet)
         avatarView.snp.makeConstraints { maker in
             maker.top.equalToSuperview().inset(16)
             maker.leading.equalToSuperview().inset(16)
             maker.height.equalTo(100)
             maker.width.equalTo(100)
         }
-
+        
         avatarView.addSubviews(avatar)
         avatar.snp.makeConstraints { maker in
             maker.top.equalToSuperview()
@@ -119,7 +111,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
             marker.leading.equalTo(avatar.snp.trailing).offset(16)
             marker.trailing.equalToSuperview().inset(16)
         }
-        statusButtom.snp.makeConstraints { marker in
+        statusButtom!.snp.makeConstraints { marker in
             marker.top.equalTo(avatar.snp.bottom).offset(16)
             marker.leading.equalToSuperview().offset(16)
             marker.trailing.equalToSuperview().inset(16)
@@ -130,7 +122,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
             marker.trailing.equalToSuperview().inset(16)
         }
         statusSet.snp.makeConstraints { marker in
-            marker.bottom.equalTo(statusButtom.snp.top).offset(-8)
+            marker.bottom.equalTo(statusButtom!.snp.top).offset(-8)
             marker.leading.equalTo(avatar.snp.trailing).offset(16)
             marker.trailing.equalToSuperview().inset(16)
             marker.height.equalTo(40)
