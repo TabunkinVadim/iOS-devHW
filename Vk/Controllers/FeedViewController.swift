@@ -8,6 +8,7 @@ import StorageService
 import UIKit
 
 class FeedViewController: UIViewController {
+    let feedModel = FeedModel()
 
     private let contentView: UIView = {
         $0.toAutoLayout()
@@ -39,11 +40,7 @@ class FeedViewController: UIViewController {
     }(UITextField())
 
     private lazy var wordCheck = CustomButton(title: "Chech word", color: UIColor(named: "MainColor") ?? .systemBlue, colorTitle: .white, borderWith: 0, cornerRadius: 10) {
-        if self .word.text != ""{
-            self.checkModel.check(word: self.word.text!)
-        } else {
-            self.word.placeholder = "Введите слово"
-        }
+        self.feedModel.chenge(.tapButton(checkModel: self.checkModel, textField: self.word))
     }
 
     let postsStack: UIStackView = {
@@ -56,12 +53,11 @@ class FeedViewController: UIViewController {
     }()
 
     private lazy var postButton1 = CustomButton(title: newPost.title + "1", color: .systemGray4, colorTitle: .black, borderWith: 1, cornerRadius: 10) {
-        self.navigationController?.pushViewController( PostViewController(), animated: true)
+        self.feedModel.chenge(.postDetail)
     }
     private lazy var postButton2 = CustomButton(title: newPost.title + "2", color: .systemGray4,colorTitle: .black, borderWith: 1, cornerRadius: 10) {
-        self.navigationController?.pushViewController( PostViewController(), animated: true)
+        self.feedModel.chenge(.postDetail)
     }
-
     private let checkModel: CheckModel
 
     init (checkModel: CheckModel) {
@@ -72,20 +68,22 @@ class FeedViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    override func loadView() {
+        super.loadView()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Feed"
         NotificationCenter.default.addObserver(self, selector: #selector(redLable), name: Notification.Name.redLable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLable), name: Notification.Name.greenLable, object: nil)
         layoutSubviews()
+
     }
 
     @objc func redLable() {
-
         word.backgroundColor = .red
     }
+
     @objc func greenLable() {
         word.backgroundColor = .green
     }
@@ -113,7 +111,7 @@ class FeedViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: feedScrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: feedScrollView.widthAnchor)
         ])
-        
+        //
         feedScrollView .addSubviews(word, wordCheck!, postsStack)
 
         NSLayoutConstraint.activate([
@@ -122,7 +120,7 @@ class FeedViewController: UIViewController {
             word.trailingAnchor.constraint(equalTo: feedScrollView.trailingAnchor, constant: -16),
             word.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
+
         NSLayoutConstraint.activate([
             wordCheck!.topAnchor.constraint(equalTo: word.bottomAnchor, constant: 30),
             wordCheck!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -144,6 +142,8 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        self.navigationController?.navigationBar.isHidden = true
+
         // подписаться на уведомления
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -158,7 +158,7 @@ class FeedViewController: UIViewController {
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    // Изменение отступов при появлении клавиатуры
+    //     Изменение отступов при появлении клавиатуры
     @objc private func kbdShow(notification: NSNotification) {
         if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             feedScrollView.contentInset.bottom = kbdSize.height
@@ -174,11 +174,7 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
-        if self .word.text != ""{
-            self.checkModel.check(word: self.word.text!)
-        } else {
-            self.word.placeholder = "Введите слово"
-        }
+        feedModel.chenge(.tapButton(checkModel: checkModel, textField: word))
         return true
     }
 }
@@ -187,6 +183,7 @@ public extension NSNotification.Name {
     static let redLable = NSNotification.Name("redLable")
     static let greenLable = NSNotification.Name("greenLable")
 }
+
 
 let newPost = Post(author: "News", image: UIImage(), description: "", likes: 10, views: 10, title: "Новости")
 

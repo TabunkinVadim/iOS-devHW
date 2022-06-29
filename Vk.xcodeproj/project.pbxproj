@@ -15,11 +15,16 @@
 		6E030B1027CBFD01004609EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E030B0F27CBFD01004609EE /* Assets.xcassets */; };
 		6E030B1327CBFD01004609EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E030B1127CBFD01004609EE /* LaunchScreen.storyboard */; };
 		6E030B3827DDE266004609EE /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E030B3727DDE266004609EE /* ProfileHeaderView.swift */; };
+		6E161DA42864EC15008591E8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E161DA32864EC15008591E8 /* MainCoordinator.swift */; };
+		6E161DA62864EE99008591E8 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E161DA52864EE99008591E8 /* ProfileCoordinator.swift */; };
+		6E161DA8286646CD008591E8 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E161DA7286646CD008591E8 /* FeedCoordinator.swift */; };
+		6E161DAA2868A39C008591E8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E161DA92868A39C008591E8 /* Coordinator.swift */; };
 		6E1852FF27DDE65900A8EA39 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */; };
 		6E18530027DDE65900A8EA39 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FC27DDE65900A8EA39 /* PostViewController.swift */; };
 		6E18530127DDE65900A8EA39 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */; };
 		6E18530227DDE65900A8EA39 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */; };
 		6E589D27284FC65F00AE3E00 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E589D26284FC65F00AE3E00 /* LoginInspector.swift */; };
+		6E924B01286B8FF70071F8B2 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E924B00286B8FF70071F8B2 /* FeedModel.swift */; };
 		6E9D02C2283D7D59000F6E91 /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9D02C1283D7D59000F6E91 /* StorageServiceTests.swift */; };
 		6E9D02C4283D7D59000F6E91 /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E9D02B4283D7D59000F6E91 /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6E9D02C7283D7D59000F6E91 /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E9D02B2283D7D59000F6E91 /* StorageService.framework */; };
@@ -98,12 +103,17 @@
 		6E030B1227CBFD01004609EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E030B1427CBFD01004609EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E030B3727DDE266004609EE /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		6E161DA32864EC15008591E8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		6E161DA52864EE99008591E8 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		6E161DA7286646CD008591E8 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
+		6E161DA92868A39C008591E8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		6E1852FB27DDE65900A8EA39 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ../Profile/ProfileViewController.swift; sourceTree = "<group>"; };
 		6E1852FC27DDE65900A8EA39 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		6E1852FD27DDE65900A8EA39 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		6E1852FE27DDE65900A8EA39 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		6E18530327DDE66B00A8EA39 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6E589D26284FC65F00AE3E00 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		6E924B00286B8FF70071F8B2 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		6E9D02B2283D7D59000F6E91 /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E9D02B4283D7D59000F6E91 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		6E9D02B5283D7D59000F6E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,6 +197,7 @@
 		6E030B0527CBFCFC004609EE /* Vk */ = {
 			isa = PBXGroup;
 			children = (
+				6E161DA12864EBC8008591E8 /* Coordinators */,
 				6EAEEE4E2860F7BA00B06A3D /* Models */,
 				6EAEEE492856DA6900B06A3D /* Factory */,
 				6E9D02E7284F9C59000F6E91 /* Singleton */,
@@ -250,6 +261,17 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		6E161DA12864EBC8008591E8 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				6E161DA92868A39C008591E8 /* Coordinator.swift */,
+				6E161DA32864EC15008591E8 /* MainCoordinator.swift */,
+				6E161DA52864EE99008591E8 /* ProfileCoordinator.swift */,
+				6E161DA7286646CD008591E8 /* FeedCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
 		6E9D02B3283D7D59000F6E91 /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				6EAEEE4F2860F7EB00B06A3D /* CheckModel.swift */,
+				6E924B00286B8FF70071F8B2 /* FeedModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -580,22 +603,27 @@
 				6EFC728027F041E1006C3DED /* ProfilePhotoCollectionViewCell.swift in Sources */,
 				6E030B0B27CBFCFC004609EE /* MainTabBarController.swift in Sources */,
 				6E9D02DD28469A16000F6E91 /* User.swift in Sources */,
+				6E924B01286B8FF70071F8B2 /* FeedModel.swift in Sources */,
 				6EFC728227F047E6006C3DED /* Photo.swift in Sources */,
+				6E161DA62864EE99008591E8 /* ProfileCoordinator.swift in Sources */,
 				6EFC727A27EEE923006C3DED /* UIViewExtension.swift in Sources */,
 				6EFB23E327E6EC0500FF8797 /* LogInViewController.swift in Sources */,
 				6EAEEE502860F7EB00B06A3D /* CheckModel.swift in Sources */,
 				6EAEEE4B2856DA9B00B06A3D /* MyLoginFactory.swift in Sources */,
 				6E1852FF27DDE65900A8EA39 /* ProfileViewController.swift in Sources */,
+				6E161DA42864EC15008591E8 /* MainCoordinator.swift in Sources */,
 				6E030B0727CBFCFC004609EE /* AppDelegate.swift in Sources */,
 				6E9D02E228469CDE000F6E91 /* CurrentUserService.swift in Sources */,
 				6E9D02E6284C98C0000F6E91 /* TestUserService.swift in Sources */,
 				6EFC727C27EF5249006C3DED /* ConstrantsPostTableViewCell.swift in Sources */,
 				6E030B3827DDE266004609EE /* ProfileHeaderView.swift in Sources */,
+				6E161DAA2868A39C008591E8 /* Coordinator.swift in Sources */,
 				6EAEEE4D285A5B0300B06A3D /* CustomButton.swift in Sources */,
 				6EFC727E27F03E26006C3DED /* PhotosTableViewCell.swift in Sources */,
 				6EFC727827EB99CF006C3DED /* PostTableViewCell.swift in Sources */,
 				6E18530227DDE65900A8EA39 /* InfoViewController.swift in Sources */,
 				6E9D02E028469B91000F6E91 /* Protocols.swift in Sources */,
+				6E161DA8286646CD008591E8 /* FeedCoordinator.swift in Sources */,
 				6E18530127DDE65900A8EA39 /* FeedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

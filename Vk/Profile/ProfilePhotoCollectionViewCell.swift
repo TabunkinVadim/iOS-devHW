@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfilePhotoCollectionViewCell: UICollectionViewCell {
-
+    weak var coordinator: ProfileCoordinator?
     var imageView: UIImageView =  {
         $0.toAutoLayout()
         $0.backgroundColor = .black

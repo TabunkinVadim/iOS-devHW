@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class ProfileHeaderView:UITableViewHeaderFooterView  {
+    weak var coordinator: ProfileCoordinator?
     private var statusText: String = ""
     
     let avatarView: UIView = {
@@ -40,6 +41,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     
     
     private lazy var statusButtom = CustomButton(title: "Show status", color: .blue, colorTitle: .white, borderWith: 0, cornerRadius: 4) {
+        self.coordinator?.photoVC()
         self.status.text = self.statusText
         print(self.status.text ?? "Статус отсутствует")
     }

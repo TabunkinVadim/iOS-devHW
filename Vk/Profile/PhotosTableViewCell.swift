@@ -9,7 +9,7 @@ import UIKit
 import iOSIntPackage
 
 class PhotosTableViewCell: UITableViewCell {
-
+    weak var coordinator: ProfileCoordinator?
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame:.zero, collectionViewLayout: layout)

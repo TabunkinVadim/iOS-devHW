@@ -10,6 +10,8 @@ import iOSIntPackage
 
 class PhotosViewController: UIViewController {
 
+    weak var coordinator: ProfileCoordinator?
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame:.zero, collectionViewLayout: layout)

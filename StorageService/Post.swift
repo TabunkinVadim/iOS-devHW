@@ -39,3 +39,5 @@ public var post3 = Post(author: "Books", image: images[2], description: "Прoк
 public var post4 = Post(author: "Мульт", image: images[3], description: "Ежик в тумане", likes: 800, views: 43000, title: "")
 
 public var posts = [post1, post2, post3, post4]
+
+public let newPost = Post(author: "News", image: UIImage(), description: "", likes: 10, views: 10, title: "Новости")

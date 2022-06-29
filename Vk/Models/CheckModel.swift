@@ -10,7 +10,7 @@ class CheckModel {
     private let word = "Пётр1"
     
     func check(word: String){
-        if word == word {
+        if self.word == word {
             NotificationCenter.default.post(name: NSNotification.Name.greenLable, object: nil)
         } else {
             NotificationCenter.default.post(name: NSNotification.Name.redLable, object: nil)

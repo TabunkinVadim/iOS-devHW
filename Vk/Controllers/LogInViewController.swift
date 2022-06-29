@@ -5,9 +5,10 @@
 //  Created by Табункин Вадим on 20.03.2022.
 //
 
-import UIKit
+import UIKit 
 
 class LogInViewController: UIViewController {
+    weak var coordinator: ProfileCoordinator?
     
     weak var delegate: LoginViewControllerDelegate?
 
@@ -71,13 +72,11 @@ class LogInViewController: UIViewController {
     }(UITextField())
 
     private lazy var loginButtom = CustomButton(title: "Login", color: UIColor(named: "MainColor") ?? .blue, colorTitle: .white, borderWith: 0, cornerRadius: 10) {
-
         self.delegate = self.loginCheker
         if let bool = self.delegate?.chek(login: self.loginSet.text ?? "", pswd: self.passwordSet.text ?? "") {
             #if DEBUG
             if bool{
-                let profileVC = ProfileViewController(user: TestUserService(), name: self.loginSet.text ?? "")
-                self.navigationController?.pushViewController( profileVC, animated: true)
+                self.coordinator?.profileVC(user: TestUserService(), name: self.loginSet.text ?? "")
             }else {
                 self.loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
                 self.passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
@@ -86,9 +85,7 @@ class LogInViewController: UIViewController {
             }
             #else
             if bool{
-                let profileVC = ProfileViewController(user: CurrentUserService(), name: self.loginSet.text ?? "")
-                self.navigationController?.pushViewController( profileVC, animated: true)
-                self.loginButtom.alpha = 1
+                self.coordinator?.profileVC(user: TestUserService(), name: self.loginSet.text ?? "")
             }else {
                 self.loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
                 self.passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
@@ -112,8 +109,6 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        self.navigationController?.navigationBar.isHidden = true
         layout()
     }
     

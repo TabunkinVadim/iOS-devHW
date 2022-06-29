@@ -9,7 +9,11 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
+
+    weak var coordinator: ProfileCoordinator?
+    
     var header: ProfileHeaderView = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
+
     private lazy var tableView: UITableView = {
         $0.toAutoLayout()
         $0.dataSource = self
@@ -43,8 +47,6 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray6
-        title = "Profile"
         layout()
     }
     
@@ -119,10 +121,7 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0{
-            let _:PhotosViewController = {
-                navigationController?.pushViewController($0, animated: true)
-                return $0
-            }(PhotosViewController())
+            coordinator?.photoVC()
         }
     }
 }
