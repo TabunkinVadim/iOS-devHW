@@ -38,8 +38,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         lable.text = "Иван Иванович"
         return lable
     }()
-    
-    
+
     private lazy var statusButtom = CustomButton(title: "Show status", color: .blue, colorTitle: .white, borderWith: 0, cornerRadius: 4) {
         self.coordinator?.photoVC()
         self.status.text = self.statusText
@@ -53,8 +52,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         lable.textColor = .gray
         return lable
     }()
-    
-    
+
     lazy var statusSet: UITextField = {
         let field = UITextField()
         field.font = UIFont.systemFont(ofSize: 15)
@@ -88,7 +86,6 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     @objc func statusTextChanged(_ textField: UITextField){
         statusText = textField.text ?? ""
     }
-    
     
     override func layoutSubviews() {
         super .layoutSubviews()

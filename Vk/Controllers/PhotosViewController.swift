@@ -23,19 +23,58 @@ class PhotosViewController: UIViewController {
         return collection
     }()
 
+    var imageThreads: [UIImage] = []
+
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(unsubscribe(_:)))
         title = "Photo Gallery"
         view.backgroundColor = .white
         super.viewDidLoad()
+        threadImages()
         layout()
-        imageFasade.subscribe(self)
-        setFasade
     }
 
-    @objc func unsubscribe(_ sender:Any) {
-        imageFasade.removeSubscription(for: self)
+    /* Измерения времени срабатывания метода processImagesOnThread с параметром:
+     qos: .default
+     Измерение 1: 6.113 сек.
+     Измерение 2: 5.367 сек.
+     Измерение 3: 5.182 сек.
+
+     qos: .background
+     Измерение 1: 5.020 сек.
+     Измерение 2: 5.008 сек.
+     Измерение 3: 5.032 сек.
+
+     qos: .userInitiated
+     Измерение 1: 4.911 сек.
+     Измерение 2: 5.736 сек.
+     Измерение 3: 5.728 сек.
+
+     qos: .userInteractive
+     Измерение 1: 5.528 сек.
+     Измерение 2: 5.121 сек.
+     Измерение 3: 5.386 сек.
+
+     qos: .utility
+     Измерение 1: 5.446 сек.
+     Измерение 2: 10.947 сек.
+     Измерение 3: 5.973 сек.
+     */
+    func threadImages() {
+        let startTime = Date()
+        ImageProcessor().processImagesOnThread(sourceImages: photoGallery2, filter: .chrome, qos: .utility) { imageThread in
+            var images: [UIImage] = []
+            for image in imageThread {
+                guard  let image = image else { return }
+                images.append(UIImage(cgImage: image))
+            }
+            self.imageThreads = images
+            DispatchQueue.main.async{
+                self.collectionView.reloadData()
+                let time = Date().timeIntervalSince(startTime)
+                print(time)
+            }
+        }
     }
 
     func layout() {
@@ -55,12 +94,12 @@ extension PhotosViewController : UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        incominginImages.count
+        imageThreads.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotoCollectionViewCell.identifier, for: indexPath) as! ProfilePhotoCollectionViewCell
-        cell.imageView.image = incominginImages[indexPath.item]
+        cell.imageView.image = imageThreads[indexPath.item]
         return cell
     }
 
@@ -77,9 +116,4 @@ extension PhotosViewController : UICollectionViewDataSource, UICollectionViewDel
         UIEdgeInsets(top: PhotosViewController.indent, left: PhotosViewController.indent, bottom: PhotosViewController.indent, right: PhotosViewController.indent)
     }
 
-}
-extension PhotosViewController: ImageLibrarySubscriber{
-    func receive(images: [UIImage]) {
-        collectionView.reloadData()
-    }
 }

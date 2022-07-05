@@ -41,7 +41,6 @@ class PostTableViewCell: UITableViewCell {
         return $0
     } (UILabel())
 
-
     let postLike : UILabel = {
         $0.toAutoLayout()
         $0.font = UIFont.systemFont(ofSize: 16)
@@ -87,7 +86,6 @@ class PostTableViewCell: UITableViewCell {
         postViews.text = "Views: \(model.views)"
     }
 
-    
     private func layout() {
         
         contentView.addSubviews(postCell,postAutor, postImage, postDescription, postLike, postViews)

@@ -77,7 +77,6 @@ class FeedViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(redLable), name: Notification.Name.redLable, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(greenLable), name: Notification.Name.greenLable, object: nil)
         layoutSubviews()
-
     }
 
     @objc func redLable() {
@@ -111,7 +110,7 @@ class FeedViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: feedScrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: feedScrollView.widthAnchor)
         ])
-        //
+
         feedScrollView .addSubviews(word, wordCheck!, postsStack)
 
         NSLayoutConstraint.activate([
@@ -127,7 +126,6 @@ class FeedViewController: UIViewController {
             wordCheck!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             wordCheck!.heightAnchor.constraint(equalToConstant: 50)
         ])
-
 
         NSLayoutConstraint.activate([
             postsStack.topAnchor.constraint(equalTo: wordCheck!.bottomAnchor, constant: 50),
@@ -183,7 +181,6 @@ public extension NSNotification.Name {
     static let redLable = NSNotification.Name("redLable")
     static let greenLable = NSNotification.Name("greenLable")
 }
-
 
 let newPost = Post(author: "News", image: UIImage(), description: "", likes: 10, views: 10, title: "Новости")
 
