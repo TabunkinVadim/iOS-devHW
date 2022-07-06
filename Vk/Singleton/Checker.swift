@@ -15,7 +15,7 @@ final class Checker {
     #else
     private let login = "Иван"
     #endif
-    private let pswd = "1"
+    private let pswd = "12z"
     
     func chek(verifiableLogin: String, verifiablePassword: String) -> Bool {
         if verifiableLogin.hash == login.hash && verifiablePassword.hash == pswd.hash {

@@ -85,7 +85,7 @@ class LogInViewController: UIViewController {
             }
             #else
             if bool{
-                self.coordinator?.profileVC(user: TestUserService(), name: self.loginSet.text ?? "")
+                self.coordinator?.profileVC(user: CurrentUserService(), name: self.loginSet.text ?? "")
             }else {
                 self.loginSet.attributedPlaceholder = NSAttributedString.init(string: "Email of phone", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
                 self.passwordSet.attributedPlaceholder = NSAttributedString.init(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
@@ -95,6 +95,47 @@ class LogInViewController: UIViewController {
             #endif
         }
     }
+    private lazy var guessingButtom = CustomButton(title: "bruteForce", color: UIColor(named: "MainColor") ?? .blue, colorTitle: .white, borderWith: 0, cornerRadius: 10) {
+        var pass = ""{
+            didSet{
+                DispatchQueue.main.async{
+                    self.passwordSet.text = pass
+                    #if DEBUG
+                    self.loginSet.text = "Пётр"
+                    #else
+                    self.loginSet.text = "Иван"
+                    #endif
+                    self.passwordSet.isSecureTextEntry = false
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                }
+            }
+        }
+        DispatchQueue.global().async {
+            pass = PassGuessing().bruteForce(passwordToUnlock: "12z")
+        }
+
+        DispatchQueue.main.async{
+            self.passwordSet.addSubview(self.indicator)
+            NSLayoutConstraint.activate([
+                self.indicator.trailingAnchor.constraint(equalTo: self.passwordSet.trailingAnchor, constant: -16),
+                self.indicator.centerYAnchor.constraint(equalTo: self.passwordSet.centerYAnchor),
+                self.indicator.heightAnchor.constraint(equalToConstant: 40),
+                self.indicator.widthAnchor.constraint(equalToConstant: 40)
+            ])
+            self.indicator.startAnimating()
+        }
+    }
+
+    var indicator: UIActivityIndicatorView = {
+        $0.toAutoLayout()
+        $0.style = UIActivityIndicatorView.Style.medium
+//            $0.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+//            $0.center = self.contentView.center
+//            self.contentView.addSubview($0)
+//            $0.startAnimating()
+        return $0
+    }(UIActivityIndicatorView())
 
     private let loginCheker: LoginInspector
 
@@ -143,7 +184,7 @@ class LogInViewController: UIViewController {
         ])
         loginButtom!.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.addSubviews(logo, loginSet, passwordSet, loginButtom!)
+        contentView.addSubviews(logo, loginSet, passwordSet, loginButtom!, guessingButtom!)
 
         NSLayoutConstraint.activate([
             logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
@@ -171,7 +212,15 @@ class LogInViewController: UIViewController {
             loginButtom!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             loginButtom!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             loginButtom!.heightAnchor.constraint(equalToConstant: 50),
-            loginButtom!.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
+//            loginButtom!.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
+        ])
+
+        NSLayoutConstraint.activate([
+            guessingButtom!.topAnchor.constraint(equalTo: loginButtom!.bottomAnchor, constant: 16),
+            guessingButtom!.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            guessingButtom!.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            guessingButtom!.heightAnchor.constraint(equalToConstant: 50),
+            guessingButtom!.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
         ])
     }
 
