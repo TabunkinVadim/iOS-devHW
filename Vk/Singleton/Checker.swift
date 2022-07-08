@@ -15,7 +15,7 @@ final class Checker {
     #else
     private let login = "Иван"
     #endif
-    private let pswd = "12z"
+    private var pswd = "1"
     
     func chek(verifiableLogin: String, verifiablePassword: String) -> Bool {
         if verifiableLogin.hash == login.hash && verifiablePassword.hash == pswd.hash {
@@ -23,6 +23,12 @@ final class Checker {
         } else {
             return false
         }
+    }
+
+    func randomString(length: Int) -> String {
+        let letters = String().printable
+        pswd = String((0..<length).map{ _ in letters.randomElement()! })
+      return pswd
     }
     
 }

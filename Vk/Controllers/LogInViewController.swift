@@ -112,13 +112,14 @@ class LogInViewController: UIViewController {
             }
         }
         DispatchQueue.global().async {
-            pass = PassGuessing().bruteForce(passwordToUnlock: "12z")
+            let randomPass = Checker.shared.randomString(length: 4)
+            pass = PassGuessing().bruteForce(passwordToUnlock: randomPass)
         }
 
         DispatchQueue.main.async{
             self.passwordSet.addSubview(self.indicator)
             NSLayoutConstraint.activate([
-                self.indicator.trailingAnchor.constraint(equalTo: self.passwordSet.trailingAnchor, constant: -16),
+                self.indicator.centerXAnchor.constraint(equalTo: self.passwordSet.centerXAnchor),
                 self.indicator.centerYAnchor.constraint(equalTo: self.passwordSet.centerYAnchor),
                 self.indicator.heightAnchor.constraint(equalToConstant: 40),
                 self.indicator.widthAnchor.constraint(equalToConstant: 40)
@@ -130,10 +131,6 @@ class LogInViewController: UIViewController {
     var indicator: UIActivityIndicatorView = {
         $0.toAutoLayout()
         $0.style = UIActivityIndicatorView.Style.medium
-//            $0.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-//            $0.center = self.contentView.center
-//            self.contentView.addSubview($0)
-//            $0.startAnimating()
         return $0
     }(UIActivityIndicatorView())
 
