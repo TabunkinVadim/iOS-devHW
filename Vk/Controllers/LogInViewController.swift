@@ -112,7 +112,7 @@ class LogInViewController: UIViewController {
             }
         }
         DispatchQueue.global().async {
-            let randomPass = Checker.shared.randomString(length: 4)
+            let randomPass = Checker.shared.randomString(length: 2)
             pass = PassGuessing().bruteForce(passwordToUnlock: randomPass)
         }
 

@@ -39,6 +39,14 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
         return lable
     }()
 
+    var timer: UILabel = {
+        let lable = UILabel()
+        lable.font = UIFont.boldSystemFont(ofSize: 14)
+        lable.textColor = .gray
+        lable.text = "5"
+        return lable
+    }()
+
     private lazy var statusButtom = CustomButton(title: "Show status", color: .blue, colorTitle: .white, borderWith: 0, cornerRadius: 4) {
         self.coordinator?.photoVC()
         self.status.text = self.statusText
@@ -90,7 +98,7 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
     override func layoutSubviews() {
         super .layoutSubviews()
         
-        contentView.addSubviews(avatarView, name, statusButtom!, status, statusSet)
+        contentView.addSubviews(avatarView, name, statusButtom!, status, statusSet,timer)
         avatarView.snp.makeConstraints { maker in
             maker.top.equalToSuperview().inset(16)
             maker.leading.equalToSuperview().inset(16)
@@ -125,6 +133,11 @@ class ProfileHeaderView:UITableViewHeaderFooterView  {
             marker.leading.equalTo(avatar.snp.trailing).offset(16)
             marker.trailing.equalToSuperview().inset(16)
             marker.height.equalTo(40)
+        }
+
+        timer.snp.makeConstraints { marker in
+            marker.trailing.equalTo(statusSet.snp.leading).offset(-8)
+            marker.centerY.equalTo(statusSet.snp.centerY)
         }
     }
 }

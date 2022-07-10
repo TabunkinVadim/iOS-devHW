@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     
     var header: ProfileHeaderView = ProfileHeaderView(reuseIdentifier: ProfileHeaderView.identifier)
 
+    private var counterSetAvatar = 0
+    private var counter = 5
     private lazy var tableView: UITableView = {
         $0.toAutoLayout()
         $0.dataSource = self
@@ -37,7 +39,7 @@ class ProfileViewController: UIViewController {
     init (user: UserService, name: String) {
         userLogin = user
         self.user = user.setUser(fullName: name) ?? User(fullName: "", avatar: UIImage(), status: "")
-        
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,6 +49,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createTimerSetAvatar()
         layout()
     }
     
@@ -65,7 +68,51 @@ class ProfileViewController: UIViewController {
         ])
         
     }
-    
+
+    var timerSetAvatar: Timer?
+
+    private func createTimerSetAvatar() {
+        DispatchQueue.global().async {
+            self.timerSetAvatar = Timer.scheduledTimer(timeInterval: 1,
+                                                       target: self,
+                                                       selector: #selector(self.timerActionSetAvatar),
+                                                       userInfo: nil,
+                                                       repeats: true)
+            guard let timer = self.timerSetAvatar else { return }
+            timer.tolerance = 0.2
+            RunLoop.current.add(timer, forMode: .common)
+            RunLoop.current.run()
+        }
+    }
+
+    @objc func timerActionSetAvatar() {
+        if counter == 0 {
+            if self.counterSetAvatar < photoGallery2.count {
+                DispatchQueue.main.async {
+                    print(self.counterSetAvatar)
+                    self.header.timer.text = String(5)
+                    self.header.avatar.image = photoGallery2[self.counterSetAvatar]
+                    self.counterSetAvatar += 1
+                    self.counter = 4
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.header.avatar.image = self.user.avatar
+                    self.counter = 5
+                    self.header.timer.text = String(self.counter)
+                    self.counter -= 1
+                    self.counterSetAvatar = 0
+                    return
+                }
+            }
+        } else {
+            DispatchQueue.main.async{
+                print(self.counterSetAvatar)
+                self.header.timer.text = String(self.counter)
+                self.counter -= 1
+            }
+        }
+    }
 }
 
 extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
